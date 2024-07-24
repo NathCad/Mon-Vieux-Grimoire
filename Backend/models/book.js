@@ -1,13 +1,13 @@
 const { Schema, model, ObjectId } = require("mongoose");
 
-const RatingSchema = new Schema({
+const ratingSchema = new Schema({
   userId: { type: String, require: true },
   grade: { type: Number, require: true },
 });
 
-const Rating = model("Rating", RatingSchema);
+const Rating = model("Rating", ratingSchema);
 
-const BookSchema = new Schema({
+const bookSchema = new Schema({
   userId: { type: String, require: true },
   title: { type: String, require: true },
   author: { type: String, require: true },
@@ -21,7 +21,7 @@ const BookSchema = new Schema({
   averageRating: { type: Number, require: true },
 });
 
-const Book = model("Book", BookSchema);
+const Book = model("Book", bookSchema);
 
 module.exports = {
   Rating,

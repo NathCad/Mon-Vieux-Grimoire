@@ -6,6 +6,7 @@ require("dotenv").config();
 const authRoutes = require("./routes/auth.js");
 const booksRoutes = require("./routes/books.js");
 
+app.use(express.json())
 app.use("/api/auth", authRoutes);
 app.use("/api/books", booksRoutes);
 
