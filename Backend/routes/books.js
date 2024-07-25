@@ -2,20 +2,21 @@ const router = require("express").Router();
 
 const {
   findAll,
-  findOne,
+  findById,
   create,
   findBestRated,
   remove,
   update,
   addRating,
 } = require("../controllers/books.js");
+const requireAuthentification = require("../middlewares/requireAuthentification.js");
 
 router.get("/", findAll);
-router.get("/:id", findOne);
+router.get("/:id", findById);
 router.get("/bestrating", findBestRated);
-router.post("/books", create);
-router.put("/:id", update);
-router.delete("/:id", remove);
-router.post(":id/rating", addRating);
+router.post("/books", requireAuthentification, create);
+router.put("/:id", requireAuthentification, update);
+router.delete("/:id", requireAuthentification, remove);
+router.post(":id/rating", requireAuthentification, addRating);
 
 module.exports = router;
