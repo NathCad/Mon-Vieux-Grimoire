@@ -14,10 +14,10 @@ const bookSchema = new Schema({
   imageUrl: { type: String, require: true },
   year: { type: Number, require: true },
   genre: { type: String, require: true },
-  ratings: {
+  ratings: [{
     type: ObjectId,
     ref: "Rating",
-  },
+  }],
   averageRating: { type: Number, require: true },
 });
 
