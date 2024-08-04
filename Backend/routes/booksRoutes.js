@@ -8,15 +8,16 @@ const {
   remove,
   update,
   addRating,
-} = require("../controllers/books.js");
+} = require("../controllers/booksController.js");
 const multerConfig = require("../middlewares/multerConfig.js");
 const requireAuthentification = require("../middlewares/requireAuthentification.js");
 
 router.get("/", findAll);
-router.get("/:id", findById);
+//Attention à l'ordre des routes rique de confusion avec findById si /:id est en premier
 router.get("/bestrating", findBestRated);
+router.get("/:id", findById);
 router.post("/", requireAuthentification, multerConfig, create);
-router.put("/:id", requireAuthentification, update);
+router.put("/:id", requireAuthentification, multerConfig, update);
 router.delete("/:id", requireAuthentification, remove);
 router.post("/:id/rating", requireAuthentification, addRating);
 

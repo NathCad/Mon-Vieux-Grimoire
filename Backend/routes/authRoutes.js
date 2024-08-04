@@ -3,7 +3,7 @@ const router = require("express").Router();
 const {
     login,
     signup
-} = require("../controllers/auth.js");
+} = require("../controllers/authController.js");
 
 router.post("/signup", signup);
 router.post("/login", login);

@@ -20,9 +20,12 @@ const storage = multer.diskStorage({
     callback(null, IMAGE_FOLDER);
   },
   filename: (req, file, callback) => {
-    const name = removeExtension(file.originalname).replaceAll(cleanRegex, "_");
+    const cleanFileName = removeExtension(file.originalname).replaceAll(
+      cleanRegex,
+      "_"
+    );
     const extension = MIME_TYPES[file.mimetype];
-    callback(null, `${name}_${Date.now()}${extension}`);
+    callback(null, `${cleanFileName}_${Date.now()}${extension}`);
   },
 });
 
