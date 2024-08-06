@@ -14,9 +14,11 @@ Le projet se démarre avec la commande:
 
 ## Configuration
 
-Le projet backend utilise un fichier d'environnement ***.env***
+1. Les images s'enregistrent dans un dossier images, le dossier se créé automatiquement: cf [middleware/sharp.js](https://github.com/NathCad/Mon-Vieux-Grimoire/blob/master/Backend/middlewares/sharp.js)
 
-Les propriétés à définir sont: 
-- DATABASE_URI: (string) l'url de la base mongodb
-- LISTENING_PORT: (number) le port d'écoute du serveur
-- TOKEN_SECRET: (string) le secret pour l'encodage des tokens jwt
+2. Le projet backend utilise un fichier d'environnement ***.env***
+
+    Les propriétés à définir sont: 
+    - DATABASE_URI: (string) l'url de la base mongodb
+    - LISTENING_PORT: (number) le port d'écoute du serveur
+    - TOKEN_SECRET: (string) le secret pour l'encodage des tokens jwt

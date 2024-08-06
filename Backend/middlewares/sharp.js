@@ -1,4 +1,5 @@
 const sharp = require("sharp");
+const fs = require("fs");
 const { getFileUrl } = require("../utils/utils");
 
 const cleanRegex = /([\s]|[.])+/g;
@@ -6,10 +7,15 @@ const cleanRegex = /([\s]|[.])+/g;
 const IMAGE_FOLDER = "images";
 
 function removeExtension(fileName) {
-    return fileName.substring(0, fileName.lastIndexOf("."));
-  }
+  return fileName.substring(0, fileName.lastIndexOf("."));
+}
 
 const sharpConfig = async (req, res, next) => {
+  fs.access(IMAGE_FOLDER, (error) => {
+    if (error) {
+      fs.mkdirSync(IMAGE_FOLDER);
+    }
+  });
   if (req.file) {
     const { buffer, originalname } = req.file;
     const cleanFileName = removeExtension(originalname).replaceAll(
