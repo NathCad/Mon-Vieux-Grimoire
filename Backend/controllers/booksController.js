@@ -23,6 +23,9 @@ function findAll(req, res) {
 async function findById(req, res) {
   try {
     const foundBook = await Book.findById(req.params.id);
+    if (!foundBook) {
+      return res.sendStatus(404);
+    }
     return res.status(200).json(foundBook);
   } catch (error) {
     return res.status(404).json({ error });
@@ -68,6 +71,9 @@ async function update(req, res) {
   const bodyBook = req.file ? JSON.parse(req.body.book) : req.body;
   const newImageUrl = getFileUrl(req);
   const savedBook = await Book.findById(req.params.id).exec();
+  if (!savedBook) {
+    return res.sendStatus(404);
+  }
   const currentImageUrl = savedBook.imageUrl;
   //controler le user id
   if (req.auth.userId !== savedBook.userId) {
@@ -94,6 +100,9 @@ async function update(req, res) {
 async function remove(req, res) {
   //recuperer le book
   const savedBook = await Book.findById(req.params.id).exec();
+  if (!savedBook) {
+    return res.sendStatus(404);
+  }
   //controler le user id
   if (req.auth.userId !== savedBook.userId) {
     return res.status(403).json({ error: FORBIDDEN_ERROR_MESSAGE });
@@ -107,6 +116,9 @@ async function remove(req, res) {
 async function addRating(req, res) {
   try {
     const savedBook = await Book.findById(req.params.id).exec();
+    if (!savedBook) {
+      return res.sendStatus(404);
+    }
     savedBook.ratings.push(
       new Rating({ userId: req.auth.userId, grade: req.body.rating })
     );
