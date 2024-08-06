@@ -1,11 +1,14 @@
 const { Rating, Book } = require("../models/bookModel.js");
-const { IMAGE_FOLDER } = require("../middlewares/multerConfig.js");
+const { IMAGE_FOLDER } = require("../middlewares/sharp.js");
 const { getFileUrl, computeAverageRating } = require("../utils/utils.js");
 const fs = require("fs");
 
 const FORBIDDEN_ERROR_MESSAGE = "403: unauthorized request";
 
 function deleteImage(imageUrl) {
+  if(!imageUrl) {
+    return;
+  }
   //supprimer l'image à partir de imageUrl
   const filePathParts = imageUrl.split("/");
   const filePath = IMAGE_FOLDER + "/" + filePathParts[filePathParts.length - 1];
@@ -47,7 +50,6 @@ async function findBestRated(req, res) {
 
 async function create(req, res) {
   //récupérer le book
-  const imageUrl = getFileUrl(req);
   try {
     const bodyBook = JSON.parse(req.body.book);
     //créer un nouveau book
@@ -55,7 +57,7 @@ async function create(req, res) {
       userId: req.auth.userId,
       title: bodyBook.title,
       author: bodyBook.author,
-      imageUrl: getFileUrl(req),
+      imageUrl: req.imageUrl,
       year: bodyBook.year,
       genre: bodyBook.genre,
     });
@@ -69,7 +71,7 @@ async function create(req, res) {
 
 async function update(req, res) {
   const bodyBook = req.file ? JSON.parse(req.body.book) : req.body;
-  const newImageUrl = getFileUrl(req);
+  const newImageUrl = req.imageUrl;
   const savedBook = await Book.findById(req.params.id).exec();
   if (!savedBook) {
     return res.sendStatus(404);

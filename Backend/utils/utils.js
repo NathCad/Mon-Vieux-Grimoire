@@ -1,12 +1,5 @@
-const { IMAGE_FOLDER } = require("../middlewares/multerConfig.js");
-
-function getFileUrl(req) {
-  if (!req.file) {
-    return null;
-  }
-  return `${req.protocol}://${req.get("host")}/${IMAGE_FOLDER}/${
-    req.file.filename
-  }`;
+function getFileUrl(protocol, host, imageFolder, fileName) {
+  return `${protocol}://${host}/${imageFolder}/${fileName}`;
 }
 
 function computeAverageRating(ratings) {
