@@ -6,7 +6,7 @@ const fs = require("fs");
 const FORBIDDEN_ERROR_MESSAGE = "403: unauthorized request";
 
 function deleteImage(imageUrl) {
-  if(!imageUrl) {
+  if (!imageUrl) {
     return;
   }
   //supprimer l'image à partir de imageUrl
@@ -64,7 +64,7 @@ async function create(req, res) {
     await book.save();
     return res.status(200).json({ message: "Book créé" });
   } catch (error) {
-    deleteImage(imageUrl);
+    deleteImage(req.imageUrl);
     res.status(400).json({ error });
   }
 }

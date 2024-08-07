@@ -13,7 +13,6 @@ const RatingSchema = new Schema({
 const Rating = model("Rating", RatingSchema);
 
 function ratingsValids(ratings) {
-  console.log("!!!!", ratings);
   const idsRead = [];
   for (const rating of ratings) {
     if (idsRead.includes(rating.userId)) {

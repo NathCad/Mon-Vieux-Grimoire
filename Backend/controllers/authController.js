@@ -5,11 +5,18 @@ require("dotenv").config();
 
 const ERROR_MESSAGE = "Email et/ou mot de passe incorrects";
 
+const PASSWORD_VALIDATION_REGEX =
+  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W])(?=.*).{8,}$/g;
+
 function signup(req, res) {
   const password = req.body.password;
-  if (!password) {
-    
-    return res.status(400).json({ error: "Mot de passe invalide" });
+  if (!password || !PASSWORD_VALIDATION_REGEX.test(password)) {
+    return res
+      .status(400)
+      .json({
+        error:
+          "Le password est invalide, une longueur de 8 minimum, une minuscule, une majuscule, un nombre et un caractère spécial sont requis.",
+      });
   }
 
   bcrypt

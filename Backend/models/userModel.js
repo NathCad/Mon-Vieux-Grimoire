@@ -14,7 +14,10 @@ const UserSchema = new Schema({
       message: "L'email est invalide",
     },
   },
-  password: { type: String, required: true },
+  password: {
+    type: String,
+    required: true,
+  },
 });
 UserSchema.plugin(uniqueValidator);
 
