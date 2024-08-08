@@ -35,6 +35,9 @@ const sharpConfig = async (req, res, next) => {
     req.imageUrl = link;
     next();
   }
+  else {
+    next();
+  }
 };
 const sharpModule = (module.exports = sharpConfig);
 sharpModule.IMAGE_FOLDER = IMAGE_FOLDER;

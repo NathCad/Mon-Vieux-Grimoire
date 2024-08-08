@@ -91,7 +91,9 @@ async function update(req, res) {
     savedBook.year = bodyBook.year;
     savedBook.genre = bodyBook.genre;
     await savedBook.save();
-    deleteImage(currentImageUrl);
+    if(newImageUrl) {
+      deleteImage(currentImageUrl);
+    }
     return res.status(200).json({ message: "Book mis à jour" });
   } catch (error) {
     deleteImage(newImageUrl);
